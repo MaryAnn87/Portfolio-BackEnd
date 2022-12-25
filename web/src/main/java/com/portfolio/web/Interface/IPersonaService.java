@@ -3,19 +3,18 @@ package com.portfolio.web.Interface;
 import com.portfolio.web.Entity.Persona;
 import java.util.List;
 
-
-
 public interface IPersonaService {
-    //traer una lista de persona
+   
+    //traer una lista de personas
     public List<Persona> getPersona();
     
-    //guardar objeto de tipo persona
+    //Guardar objeto de tipo persona
     public void savePersona(Persona persona);
     
-    //eliminar usuario pero buscandolo por ID
+    //eliminar objeto de tipo persona pero buscandolo por id
     public void deletePersona (Long id);
     
-    //buscar persona por id
-    public Persona findPersona(Long id);
-}
+    //Buscar persna por id
+    public Persona findPersona (Long id);
     
+}

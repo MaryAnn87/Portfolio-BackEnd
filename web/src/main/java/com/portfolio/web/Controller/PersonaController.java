@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonaController {
     @Autowired IPersonaService ipersonaService;
     
-
-    @GetMapping ("personas/traer")
+    @GetMapping("/personas/traer")
     public List<Persona> getPersona(){
         return ipersonaService.getPersona();
     }
@@ -31,25 +30,25 @@ public class PersonaController {
     
     @DeleteMapping("/personas/borrar/{id}")
     public String deletePersona(@PathVariable Long id){
-       ipersonaService.deletePersona(id);
-       return "La persona ha sido eliminada correctamente";
+        ipersonaService.deletePersona(id);
+        return "La persona ha sido eliminada correctamente";
     }
     
-    // url: port/personas/editar/567/nombre&apellido&img
+    //url:port/personas/editar/nombre&apellido&img
     @PutMapping("/personas/editar/{id}")
     public Persona editPersona(@PathVariable Long id,
-                               @RequestParam ("nombre") String newNombre,
-                               @RequestParam ("apellido") String newApellido,
-                               @RequestParam ("img") String newImg){
+                               @RequestParam("nombre") String nuevoNombre,
+                               @RequestParam("apellido") String nuevoApellido,
+                               @RequestParam("img") String nuevoImg){
         Persona persona = ipersonaService.findPersona(id);
-        persona.setNombre(newNombre);
-        persona.setApellido(newApellido);
-        persona.setImg(newImg);
         
-        ipersonaService.savePersona(persona);
+        persona.setNombre(nuevoNombre);
+        persona.setApellido(nuevoApellido);
+        persona.setImg(nuevoImg);
+        
+        ipersonaService.savePersona(persona);    
         return persona;
-        
     }
+
+    
 }
-
-
