@@ -34,7 +34,7 @@ public class PersonaController {
         return "La persona ha sido eliminada correctamente";
     }
     
-    //url:port/personas/editar/nombre&apellido&img
+    //url:port/personas/editar/id?nombre=xxxxx&apellido=xxxxx&img+xxxxx
     @PutMapping("/personas/editar/{id}")
     public Persona editPersona(@PathVariable Long id,
                                @RequestParam("nombre") String nuevoNombre,
