@@ -59,50 +59,50 @@ public class CtrEducacion {
         if (StringUtils.isBlank(dtoEducacion.getTituloEd())) {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        Educacion educacion = new Educacion(dtoEducacion.getNombreInstitucion(),dtoEducacion.getTituloEd(),dtoEducacion.getPeriodo(),dtoEducacion.getDescripcionEd());
+        Educacion educacion = new Educacion(dtoEducacion.getNombreInstitucion(), dtoEducacion.getTituloEd(), dtoEducacion.getPeriodo(), dtoEducacion.getDescripcionEd());
         svcEducacion.save(educacion);
         return new ResponseEntity(new Mensaje("Educacion creada"), HttpStatus.OK);
-    }   
+    }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update (@PathVariable("id") int id, @RequestBody DtoEducacion dtoEducacion){
-       if(!svcEducacion.existsById(id)){
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoEducacion dtoEducacion) {
+        if (!svcEducacion.existsById(id)) {
             return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
         }
         //validacion de nombre de institucion
-        if(svcEducacion.existsByNombreInstitucion(dtoEducacion.getNombreInstitucion())&& svcEducacion.getByNombreInstitucion(dtoEducacion.getNombreInstitucion()).get().getId() !=id){
+        if (svcEducacion.existsByNombreInstitucion(dtoEducacion.getNombreInstitucion()) && svcEducacion.getByNombreInstitucion(dtoEducacion.getNombreInstitucion()).get().getId() != id) {
             return new ResponseEntity(new Mensaje("Esa institucion ya existe"), HttpStatus.BAD_REQUEST);
         }
-        
-         //validacion de titulo 
-        if(svcEducacion.existsByTituloEd(dtoEducacion.getTituloEd())&& svcEducacion.getByTituloEd(dtoEducacion.getTituloEd()).get().getId() !=id){
+
+        //validacion de titulo 
+        if (svcEducacion.existsByTituloEd(dtoEducacion.getTituloEd()) && svcEducacion.getByTituloEd(dtoEducacion.getTituloEd()).get().getId() != id) {
             return new ResponseEntity(new Mensaje("Ese titulo ya existe"), HttpStatus.BAD_REQUEST);
         }
-        
+
         //validacion de campo vacio
-        if(StringUtils.isBlank(dtoEducacion.getNombreInstitucion())){
+        if (StringUtils.isBlank(dtoEducacion.getNombreInstitucion())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(dtoEducacion.getTituloEd())){
+        if (StringUtils.isBlank(dtoEducacion.getTituloEd())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(dtoEducacion.getPeriodo())){
+        if (StringUtils.isBlank(dtoEducacion.getPeriodo())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(dtoEducacion.getDescripcionEd())){
+        if (StringUtils.isBlank(dtoEducacion.getDescripcionEd())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }
-        
+
         //actualizacion del objecto
-      Educacion educacion = svcEducacion.getOne(id).get();
-      
-      educacion.setNombreInstitucion(dtoEducacion.getNombreInstitucion());
-      educacion.setTituloEd(dtoEducacion.getTituloEd());
-      educacion.setPeriodo(dtoEducacion.getPeriodo());
-      educacion.setDescripcionEd(dtoEducacion.getDescripcionEd());
-      
-      svcEducacion.save(educacion);
-      
-      return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);
-    }      
+        Educacion educacion = svcEducacion.getOne(id).get();
+
+        educacion.setNombreInstitucion(dtoEducacion.getNombreInstitucion());
+        educacion.setTituloEd(dtoEducacion.getTituloEd());
+        educacion.setPeriodo(dtoEducacion.getPeriodo());
+        educacion.setDescripcionEd(dtoEducacion.getDescripcionEd());
+
+        svcEducacion.save(educacion);
+
+        return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);
+    }
 }
