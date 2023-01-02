@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/educacion")
+@RequestMapping("/edu")
 @CrossOrigin(origins = "http://localhost:4200")
 
 public class CtrEducacion {
@@ -74,12 +74,7 @@ public class CtrEducacion {
             return new ResponseEntity(new Mensaje("Esa institucion ya existe"), HttpStatus.BAD_REQUEST);
         }
 
-        //validacion de titulo 
-        if (svcEducacion.existsByTituloEd(dtoEducacion.getTituloEd()) && svcEducacion.getByTituloEd(dtoEducacion.getTituloEd()).get().getId() != id) {
-            return new ResponseEntity(new Mensaje("Ese titulo ya existe"), HttpStatus.BAD_REQUEST);
-        }
-
-        //validacion de campo vacio
+         //validacion de campo vacio
         if (StringUtils.isBlank(dtoEducacion.getNombreInstitucion())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }

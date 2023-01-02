@@ -28,15 +28,7 @@ public class SvcEducacion {
         return repEducacion.findByNombreInstitucion(nombreInstitucion);
     }
 
-    public Optional<Educacion> getByTituloEd(String tituloEd) {
-        return repEducacion.findByTituloEd(tituloEd);
-    }
-    
-    public Optional<Educacion> getByPeriodo(String periodo) {
-        return repEducacion.findByPeriodo(periodo);
-    }
-
-    public void save(Educacion educacion) {
+     public void save(Educacion educacion) {
         repEducacion.save(educacion);
     }
 
@@ -53,8 +45,5 @@ public class SvcEducacion {
         return repEducacion.existsByNombreInstitucion(nombreInstitucion);
     }
     
-    public boolean existsByTituloEd(String tituloEd) {
-        return repEducacion.existsByTituloEd(tituloEd);
-    }
-
+    
 }

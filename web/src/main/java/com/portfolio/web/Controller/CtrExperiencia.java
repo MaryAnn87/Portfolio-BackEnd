@@ -64,7 +64,7 @@ public class CtrExperiencia {
     }
     
     
-    //eliminar una experiencia
+    //update una experiencia
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoExperiencia dtoexp){
         //validacion si existe el id
