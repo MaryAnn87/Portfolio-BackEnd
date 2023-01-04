@@ -54,6 +54,7 @@ public class CtrEducacion {
         return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
     }
 
+    //crear un Educacion
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DtoEducacion dtoEducacion) {
         if (StringUtils.isBlank(dtoEducacion.getTituloEd())) {
