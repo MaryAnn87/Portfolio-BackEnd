@@ -19,7 +19,7 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(String nombrePr, String descripcionPr, String url) {
+    public Proyecto(String nombrePr, String descripcionPr, String linkPr) {
         this.nombrePr = nombrePr;
         this.descripcionPr = descripcionPr;
         this.linkPr = linkPr;
@@ -58,7 +58,7 @@ public class Proyecto {
         return linkPr;
     }
 
-    public void setLinkPr(String url) {
+    public void setLinkPr(String linkPr) {
         this.linkPr = linkPr;
     }
     
