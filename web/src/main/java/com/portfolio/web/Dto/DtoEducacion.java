@@ -18,7 +18,7 @@ public class DtoEducacion {
     public DtoEducacion() {
     }
 
-    public DtoEducacion(String nombreInstitucion, String tituloEd, String periodo, String descripcionE) {
+    public DtoEducacion(String nombreInstitucion, String tituloEd, String periodo, String descripcionEd) {
         this.nombreInstitucion = nombreInstitucion;
         this.tituloEd = tituloEd;
         this.periodo = periodo;
@@ -55,8 +55,8 @@ public class DtoEducacion {
         return descripcionEd;
     }
 
-    public void setDescripcionEd(String descripcionE) {
-        this.descripcionEd = descripcionE;
+    public void setDescripcionEd(String descripcionEd) {
+        this.descripcionEd = descripcionEd;
     }
     
     

@@ -28,6 +28,7 @@ public class CtrEducacion {
     @Autowired
     SvcEducacion svcEducacion;
 
+    //Trae lista de educacion
     @GetMapping("/lista")
     public ResponseEntity<List<Educacion>> list() {
         List<Educacion> list = svcEducacion.list();
@@ -36,11 +37,9 @@ public class CtrEducacion {
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<Educacion> getById(@PathVariable("id") int id) {
-        //validacion si no existe ese id
         if (!svcEducacion.existsById(id)) {
-            return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.NOT_FOUND);
         }
-
         Educacion educacion = svcEducacion.getOne(id).get();
         return new ResponseEntity(educacion, HttpStatus.OK);
     }
@@ -48,57 +47,64 @@ public class CtrEducacion {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         if (!svcEducacion.existsById(id)) {
-            return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje(" Id de educacion no existe"), HttpStatus.NOT_FOUND);
         }
         svcEducacion.delete(id);
         return new ResponseEntity(new Mensaje("Educacion eliminada"), HttpStatus.OK);
     }
 
-    //crear un Educacion
+    //crear una educacion
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody DtoEducacion dtoEducacion) {
-        if (StringUtils.isBlank(dtoEducacion.getTituloEd())) {
+    public ResponseEntity<?> create(@RequestBody DtoEducacion dtoedu) {
+        if (StringUtils.isBlank(dtoedu.getNombreInstitucion())) {
+            return new ResponseEntity(new Mensaje("el nombre de educacion es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if (svcEducacion.existsByNombreInstitucion(dtoedu.getNombreInstitucion())) {
+            return new ResponseEntity(new Mensaje("Esa educacion ya existe"), HttpStatus.BAD_REQUEST);
+        }
+
+        Educacion educacion = new Educacion(dtoedu.getNombreInstitucion(), dtoedu.getTituloEd(), dtoedu.getPeriodo(), dtoedu.getDescripcionEd());
+        svcEducacion.save(educacion);
+        return new ResponseEntity(new Mensaje("Educacion agregada exitosamente"), HttpStatus.OK);
+    }
+
+    //update una educacion
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoEducacion dtoedu) {
+        //validacion si existe el id
+        if (!svcEducacion.existsById(id)) {
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        }
+
+        //Compara nombre de cada educacion
+        if (svcEducacion.existsByNombreInstitucion(dtoedu.getNombreInstitucion()) && svcEducacion.getByNombreInsitucion(dtoedu.getNombreInstitucion()).get().getId() != id) {
+            return new ResponseEntity(new Mensaje("Esa educacion ya existe"), HttpStatus.BAD_REQUEST);
+        }
+
+        //valida que el campo no este vacio
+        if (StringUtils.isBlank(dtoedu.getNombreInstitucion())) {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        Educacion educacion = new Educacion(dtoEducacion.getNombreInstitucion(), dtoEducacion.getTituloEd(), dtoEducacion.getPeriodo(), dtoEducacion.getDescripcionEd());
-        svcEducacion.save(educacion);
-        return new ResponseEntity(new Mensaje("Educacion creada"), HttpStatus.OK);
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoEducacion dtoEducacion) {
-        if (!svcEducacion.existsById(id)) {
-            return new ResponseEntity(new Mensaje("No existe el ID"), HttpStatus.NOT_FOUND);
+        if (StringUtils.isBlank(dtoedu.getTituloEd())) {
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
-        //validacion de nombre de institucion
-        if (svcEducacion.existsByNombreInstitucion(dtoEducacion.getNombreInstitucion()) && svcEducacion.getByNombreInstitucion(dtoEducacion.getNombreInstitucion()).get().getId() != id) {
-            return new ResponseEntity(new Mensaje("Esa institucion ya existe"), HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(dtoedu.getPeriodo())) {
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoedu.getDescripcionEd())) {
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
-         //validacion de campo vacio
-        if (StringUtils.isBlank(dtoEducacion.getNombreInstitucion())) {
-            return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(dtoEducacion.getTituloEd())) {
-            return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(dtoEducacion.getPeriodo())) {
-            return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(dtoEducacion.getDescripcionEd())) {
-            return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
-        }
-
-        //actualizacion del objecto
+        //si pasa todas las validaciones entonces:
         Educacion educacion = svcEducacion.getOne(id).get();
-
-        educacion.setNombreInstitucion(dtoEducacion.getNombreInstitucion());
-        educacion.setTituloEd(dtoEducacion.getTituloEd());
-        educacion.setPeriodo(dtoEducacion.getPeriodo());
-        educacion.setDescripcionEd(dtoEducacion.getDescripcionEd());
+        educacion.setNombreInstitucion(dtoedu.getNombreInstitucion());
+        educacion.setTituloEd(dtoedu.getTituloEd());
+        educacion.setPeriodo(dtoedu.getPeriodo());
+        educacion.setDescripcionEd((dtoedu.getDescripcionEd()));
 
         svcEducacion.save(educacion);
+        return new ResponseEntity(new Mensaje("Educacion se ha actualizado correctamente"), HttpStatus.OK);
 
-        return new ResponseEntity(new Mensaje("Educacion actualizada"), HttpStatus.OK);
     }
+
 }

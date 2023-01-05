@@ -83,6 +83,10 @@ public class PersonaController {
         if (StringUtils.isBlank(dtoPersona.getImg())) {
             return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
         }
+        
+        if (StringUtils.isBlank(dtoPersona.getTituloProfesion())) {
+            return new ResponseEntity(new Mensaje("El campo no debe estar vacio!"), HttpStatus.BAD_REQUEST);
+        }
 
         //actualizacion del objecto
         Persona persona = impPersonaService.getOne(id).get();
@@ -91,6 +95,7 @@ public class PersonaController {
         persona.setApellido(dtoPersona.getApellido());
         persona.setDescripcion(dtoPersona.getDescripcion());
         persona.setImg(dtoPersona.getImg());
+        persona.setTituloProfesion(dtoPersona.getTituloProfesion());
 
         impPersonaService.save(persona);
 

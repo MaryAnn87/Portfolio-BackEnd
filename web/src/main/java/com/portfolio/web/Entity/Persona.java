@@ -24,6 +24,9 @@ public class Persona {
 
     @NotNull
     private String descripcion;
+    
+    @NotNull
+    private String tituloProfesion;
 
     private String img;
 
@@ -31,11 +34,12 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String nombre, String apellido, String descripcion, String img) {
+    public Persona(String nombre, String apellido, String descripcion, String img, String tituloProfesion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.descripcion = descripcion;
         this.img = img;
+        this.tituloProfesion = tituloProfesion;
     }
 
     //setters y getters 
@@ -77,5 +81,13 @@ public class Persona {
 
     public void setImg(String img) {
         this.img = img;
+    }
+    
+    public String getTituloProfesion() {
+        return tituloProfesion;
+    }
+
+    public void setTituloProfesion(String tituloProfesion) {
+        this.tituloProfesion = tituloProfesion;
     }
 }

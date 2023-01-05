@@ -24,26 +24,25 @@ public class SvcEducacion {
         return repEducacion.findById(id);
     }
 
-    public Optional<Educacion> getByNombreInstitucion(String nombreInstitucion) {
+    public Optional<Educacion> getByNombreInsitucion(String nombreInstitucion) {
         return repEducacion.findByNombreInstitucion(nombreInstitucion);
     }
 
-     public void save(Educacion educacion) {
-        repEducacion.save(educacion);
+    public void save(Educacion exp) {
+        repEducacion.save(exp);
     }
 
     public void delete(int id) {
         repEducacion.deleteById(id);
     }
 
-    //metodo que busca si existe la educacion por id, nombre de institucion o titulo adquirido
+    //metodo que busca si existe la educacion por id o nombre
     public boolean existsById(int id) {
         return repEducacion.existsById(id);
     }
-    
-    public boolean existsByNombreInstitucion(String nombreInstitucion) {
-        return repEducacion.existsByNombreInstitucion(nombreInstitucion);
+
+    public boolean existsByNombreInstitucion(String nombreInsititucion) {
+        return repEducacion.existsByNombreInstitucion(nombreInsititucion);
     }
-    
-    
+
 }

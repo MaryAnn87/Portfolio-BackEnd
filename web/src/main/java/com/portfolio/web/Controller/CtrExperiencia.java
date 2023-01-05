@@ -78,6 +78,12 @@ public class CtrExperiencia {
        //valida que el campo no este vacio
       if(StringUtils.isBlank(dtoexp.getNombreE()))
           return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+      if(StringUtils.isBlank(dtoexp.getTituloPuesto()))
+          return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+      if(StringUtils.isBlank(dtoexp.getPeriodo()))
+          return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+      if(StringUtils.isBlank(dtoexp.getDescripcionE()))
+          return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
       
       //si pasa todas las validaciones entonces:
       Experiencia experiencia =  svcExperiencia.getOne(id).get();

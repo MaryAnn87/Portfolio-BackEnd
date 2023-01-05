@@ -11,17 +11,22 @@ public class DtoPersona {
     @NotBlank
     private String descripcion;
     @NotBlank
+    private String tituloProfesion;
+    @NotBlank
     private String img;
+    
+    
 
     //constructores
     public DtoPersona() {
     }
 
-    public DtoPersona(String nombre, String apellido, String descripcion, String img) {
+    public DtoPersona(String nombre, String apellido, String descripcion, String img, String tituloProfesion) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.descripcion = descripcion;
         this.img = img;
+        this.tituloProfesion = tituloProfesion;
     }
 
     //Getters & Setters
@@ -56,5 +61,14 @@ public class DtoPersona {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public String getTituloProfesion() {
+        return tituloProfesion;
+    }
+
+    public void setTituloProfesion(String tituloProfesion) {
+        this.tituloProfesion = tituloProfesion;
+    }
+    
 
 }
