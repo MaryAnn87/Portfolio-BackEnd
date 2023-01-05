@@ -4,9 +4,15 @@ import com.portfolio.web.Entity.Proyecto;
 import com.portfolio.web.Repository.RepProyecto;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service
+@Transactional
 public class SvcProyecto {
-
+    @Autowired
     RepProyecto repProyecto;
 
     public List<Proyecto> list() {

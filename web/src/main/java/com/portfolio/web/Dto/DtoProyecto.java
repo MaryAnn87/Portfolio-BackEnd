@@ -3,22 +3,25 @@ package com.portfolio.web.Dto;
 import javax.validation.constraints.NotBlank;
 
 public class DtoProyecto {
+
     @NotBlank
     private String nombrePr;
     @NotBlank
     private String descripcionPr;
-    
+    @NotBlank
+    private String linkPr;
+
     //constructores
-     public DtoProyecto() {
+    public DtoProyecto() {
     }
 
-    public DtoProyecto(String nombrePr, String descripcionPr) {
+    public DtoProyecto(String nombrePr, String descripcionPr, String linkPr) {
         this.nombrePr = nombrePr;
         this.descripcionPr = descripcionPr;
+        this.linkPr = linkPr;
     }
-     
-    //getters & setters
 
+    //getters & setters
     public String getNombrePr() {
         return nombrePr;
     }
@@ -34,5 +37,13 @@ public class DtoProyecto {
     public void setDescripcionPr(String descripcionPr) {
         this.descripcionPr = descripcionPr;
     }
-    
+
+    public String getLinkPr() {
+        return linkPr;
+    }
+
+    public void setLinkPr(String linkPr) {
+        this.linkPr = linkPr;
+    }
+
 }
